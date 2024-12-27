@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teras Merapi - Wisata Alam Merapi</title>
+    <link rel="stylesheet" href="output.css" />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.8s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hover-scale {
+        transition: transform 0.3s ease;
+      }
+
+      .hover-scale:hover {
+        transform: scale(1.05);
+      }
+
+      .slide-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease;
+      }
+
+      .slide-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .nav-link {
+        position: relative;
+        padding: 0.5rem 0;
+      }
+
+      .mobile-nav-link {
+        position: relative;
+        padding: 0.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .mobile-nav-link:hover {
+        background-color: rgba(158, 223, 156, 0.1);
+        border-radius: 0.5rem;
+      }
+
+      /* Scroll-triggered background change */
+      .nav-scrolled {
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(8px);
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        });
+
+        document
+          .querySelectorAll(".slide-in")
+          .forEach((el) => observer.observe(el));
+      });
+
+      function toggleMobileMenu() {
+        const mobileMenu = document.getElementById("mobileMenu");
+        mobileMenu.classList.toggle("hidden");
+      }
+
+      // Scroll-triggered navbar background
+      window.addEventListener("scroll", () => {
+        const nav = document.querySelector("nav");
+        if (window.scrollY > 50) {
+          nav.classList.add("nav-scrolled");
+        } else {
+          nav.classList.remove("nav-scrolled");
+        }
+      });
+      // Close mobile menu when clicking outside
+      document.addEventListener("click", (e) => {
+        const mobileMenu = document.getElementById("mobileMenu");
+        const menuButton = document.querySelector("button");
+
+        if (!menuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
+          mobileMenu.classList.add("hidden");
+        }
+      });
+
+      // Active link indicator
+      document.addEventListener("DOMContentLoaded", () => {
+        const sections = document.querySelectorAll("section[id]");
+
+        window.addEventListener("scroll", () => {
+          let current = "";
+
+          sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+
+            if (window.scrollY >= sectionTop - sectionHeight / 3) {
+              current = section.getAttribute("id");
+            }
+          });
+
+          document.querySelectorAll(".nav-link").forEach((link) => {
+            link.classList.remove("active");
+            if (link.getAttribute("href").slice(1) === current) {
+              link.classList.add("active");
+            }
+          });
+        });
+      });
+    </script>
+  </head>
+  <body class="font-sans bg-primary-light/10">
+    <!-- Navigation -->
+    <nav
+      class="bg-white/90 backdrop-blur-sm shadow-lg fixed w-full z-10 transition-all duration-300"
+    >
+      <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+          <!-- Logo -->
+          <div class="flex items-center space-x-2 hover-scale">
+            <img
+              src="img/logo.png"
+              alt="Logo Teras Merapi"
+              class="h-10 w-auto"
+            />
+            <div>
+              <div class="text-xl font-bold text-primary-darker">
+                TERAS MERAPI
+              </div>
+              <div class="text-xs text-primary-dark hidden sm:block">
+                Wisata Alam Merapi
+              </div>
+            </div>
+          </div>
+
+          <!-- Desktop Menu -->
+          <div class="hidden lg:flex items-center space-x-8">
+            <a href="#home" class="nav-link group">
+              <span
+                class="text-primary-dark group-hover:text-primary-darker transition-colors duration-300"
+                >Beranda</span
+              >
+              <div
+                class="h-0.5 w-0 group-hover:w-full bg-primary-dark transition-all duration-300"
+              ></div>
+            </a>
+            <a href="#about" class="nav-link group">
+              <span
+                class="text-primary-dark group-hover:text-primary-darker transition-colors duration-300"
+                >Tentang</span
+              >
+              <div
+                class="h-0.5 w-0 group-hover:w-full bg-primary-dark transition-all duration-300"
+              ></div>
+            </a>
+            <a href="#attractions" class="nav-link group">
+              <span
+                class="text-primary-dark group-hover:text-primary-darker transition-colors duration-300"
+                >Wisata</span
+              >
+              <div
+                class="h-0.5 w-0 group-hover:w-full bg-primary-dark transition-all duration-300"
+              ></div>
+            </a>
+            <a href="#gallery" class="nav-link group">
+              <span
+                class="text-primary-dark group-hover:text-primary-darker transition-colors duration-300"
+                >Galeri</span
+              >
+              <div
+                class="h-0.5 w-0 group-hover:w-full bg-primary-dark transition-all duration-300"
+              ></div>
+            </a>
+            <a href="#contact" class="nav-link group">
+              <span
+                class="text-primary-dark group-hover:text-primary-darker transition-colors duration-300"
+                >Kontak</span
+              >
+              <div
+                class="h-0.5 w-0 group-hover:w-full bg-primary-dark transition-all duration-300"
+              ></div>
+            </a>
+            <a
+              href="#book"
+              class="bg-primary hover:bg-primary-dark text-primary-darker hover:text-white px-6 py-2 rounded-full transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 flex items-center space-x-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Reservasi</span>
+            </a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button
+            class="lg:hidden text-primary-darker hover:text-primary-dark transition-colors duration-300"
+            onclick="toggleMobileMenu()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden pb-4">
+          <div class="flex flex-col space-y-4">
+            <a href="#home" class="mobile-nav-link">
+              <span class="text-primary-dark">Beranda</span>
+            </a>
+            <a href="#about" class="mobile-nav-link">
+              <span class="text-primary-dark">Tentang</span>
+            </a>
+            <a href="#attractions" class="mobile-nav-link">
+              <span class="text-primary-dark">Wisata</span>
+            </a>
+            <a href="#gallery" class="mobile-nav-link">
+              <span class="text-primary-dark">Galeri</span>
+            </a>
+            <a href="#contact" class="mobile-nav-link">
+              <span class="text-primary-dark">Kontak</span>
+            </a>
+            <a
+              href="#book"
+              class="bg-primary hover:bg-primary-dark text-primary-darker hover:text-white px-6 py-2 rounded-full transition-all duration-300 text-center"
+            >
+              Reservasi
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen">
+      <!-- Background layers -->
+      <div class="absolute inset-0 bg-black opacity-40"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-primary-darker/60 to-transparent"
+      ></div>
+      <img
+        src="https://travelspromo.com/wp-content/uploads/2022/05/bersantai-di-teras-merapi-sambil-menikmati-pemandangan-gunung.jpg"
+        alt="Merapi Mountain"
+        class="w-full h-full object-cover"
+      />
+
+      <!-- Hero Content -->
+      <div
+        class="absolute inset-0 flex flex-col items-center justify-center text-center animate-fade-in"
+      >
+        <div class="text-white max-w-5xl px-4">
+          <h1 class="text-5xl md:text-6xl font-bold mb-4 drop-shadow-lg">
+            TERAS MERAPI
+          </h1>
+          <p class="text-xl md:text-2xl mb-8 drop-shadow">
+            Nikmati Keindahan Gunung Merapi dari Ketinggian
+          </p>
+          <a
+            href="#about"
+            class="bg-primary hover:bg-primary-dark text-primary-darker hover:text-white px-8 py-3 rounded-full transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 inline-block mb-16"
+          >
+            Jelajahi Sekarang
+          </a>
+
+          <!-- Stats Container -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-8"
+          >
+            <!-- Visitor Counter -->
+            <div
+              class="bg-white/10 backdrop-blur-md rounded-xl p-6 transform hover:scale-105 transition-all duration-300 border border-white/20"
+            >
+              <div
+                class="text-4xl font-bold mb-2 counter-number"
+                data-target="15780"
+              >
+                0
+              </div>
+              <div class="text-sm uppercase tracking-wider">
+                Pengunjung Tahun Ini
+              </div>
+            </div>
+
+            <!-- Accommodation Counter -->
+            <div
+              class="bg-white/10 backdrop-blur-md rounded-xl p-6 transform hover:scale-105 transition-all duration-300 border border-white/20"
+            >
+              <div
+                class="text-4xl font-bold mb-2 counter-number"
+                data-target="24"
+              >
+                0
+              </div>
+              <div class="text-sm uppercase tracking-wider">
+                Unit Penginapan
+              </div>
+            </div>
+
+            <!-- Rating -->
+            <div
+              class="bg-white/10 backdrop-blur-md rounded-xl p-6 transform hover:scale-105 transition-all duration-300 border border-white/20"
+            >
+              <div class="flex items-center justify-center mb-2">
+                <div
+                  class="text-4xl font-bold mr-2 counter-decimal"
+                  data-target="4.8"
+                >
+                  0
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-8 w-8 text-yellow-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  />
+                </svg>
+              </div>
+              <div class="text-sm uppercase tracking-wider">
+                Rating Pengunjung
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add this script at the end of your body tag -->
+      <script>
+        // Counter animation function
+        function animateCounter(element, target, isDecimal = false) {
+          let current = 0;
+          const increment = isDecimal ? 0.1 : 1;
+          const duration = 2000; // 2 seconds
+          const steps = isDecimal ? target * 10 : target;
+          const stepTime = duration / steps;
+
+          const timer = setInterval(() => {
+            current += increment;
+            if (current > target) {
+              element.textContent = target;
+              clearInterval(timer);
+            } else {
+              element.textContent = isDecimal
+                ? current.toFixed(1)
+                : Math.floor(current);
+            }
+          }, stepTime);
+        }
+
+        // Intersection Observer for counter animation
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                // Regular counters
+                entry.target
+                  .querySelectorAll(".counter-number")
+                  .forEach((counter) => {
+                    const target = parseInt(
+                      counter.getAttribute("data-target")
+                    );
+                    animateCounter(counter, target);
+                  });
+
+                // Decimal counter (rating)
+                entry.target
+                  .querySelectorAll(".counter-decimal")
+                  .forEach((counter) => {
+                    const target = parseFloat(
+                      counter.getAttribute("data-target")
+                    );
+                    animateCounter(counter, target, true);
+                  });
+
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+
+        // Observe the hero section
+        observer.observe(document.querySelector("#home"));
+      </script>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <h2
+          class="text-3xl font-bold text-center mb-12 text-primary-darker slide-in"
+        >
+          Tentang Teras Merapi
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div class="slide-in">
+            <img
+              src="https://wisato.id/wp-content/uploads/2022/05/TERAS-MERAPI-scaled.jpg"
+              alt="Teras Merapi View"
+              class="rounded-lg shadow-lg hover-scale"
+            />
+          </div>
+          <div class="space-y-4 slide-in">
+            <p class="text-primary-dark">
+              Teras Merapi adalah destinasi wisata alam yang menawarkan
+              pengalaman unik menikmati keindahan Gunung Merapi dari ketinggian.
+              Dengan konsep outdoor yang menyatu dengan alam, pengunjung dapat
+              menikmati pemandangan gunung yang megah sambil bersantai di
+              berbagai spot foto yang instagramable.
+            </p>
+            <p class="text-primary-dark">
+              Kami menyediakan berbagai fasilitas untuk kenyamanan pengunjung,
+              termasuk area parkir yang luas, tempat makan dengan view menghadap
+              gunung, dan spot-spot foto yang menarik.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Attractions Section -->
+    <section id="attractions" class="py-16 bg-primary-light/20">
+      <div class="container mx-auto px-4">
+        <h2
+          class="text-3xl font-bold text-center mb-12 text-primary-darker slide-in"
+        >
+          Wisata Unggulan
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div
+            class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale slide-in"
+          >
+            <img
+              src="img/paket 1.jpg"
+              alt="Spot Foto"
+              class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+            />
+            <div class="p-6">
+              <h3 class="font-bold text-xl mb-2 text-primary-darker">
+                Spot Foto Instagramable
+              </h3>
+              <p class="text-primary-dark">
+                Berbagai spot foto menarik dengan latar belakang Gunung Merapi
+                yang megah.
+              </p>
+            </div>
+          </div>
+          <div
+            class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale slide-in"
+          >
+            <img
+              src="img/paket 2.jpg"
+              alt="Cafe"
+              class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+            />
+            <div class="p-6">
+              <h3 class="font-bold text-xl mb-2 text-primary-darker">
+                Cafe dengan View Merapi
+              </h3>
+              <p class="text-primary-dark">
+                Nikmati hidangan lezat sambil memandang keindahan Gunung Merapi.
+              </p>
+            </div>
+          </div>
+          <div
+            class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale slide-in"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1590807487429-2277647c4f60?q=80&w=1974&auto=format&fit=crop"
+              alt="Sunset Point"
+              class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+            />
+            <div class="p-6">
+              <h3 class="font-bold text-xl mb-2 text-primary-darker">
+                Sunset Point
+              </h3>
+              <p class="text-primary-dark">
+                Spot terbaik untuk menikmati matahari terbenam dengan view
+                gunung.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <h2
+          class="text-3xl font-bold text-center mb-12 text-primary-darker slide-in"
+        >
+          Galeri Foto
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="overflow-hidden rounded-lg slide-in">
+            <img
+              src="https://images.unsplash.com/photo-1590807487429-2277647c4f60?q=80&w=1974&auto=format&fit=crop"
+              alt="Gallery 1"
+              class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+            />
+          </div>
+          <div class="overflow-hidden rounded-lg slide-in">
+            <img
+              src="https://images.unsplash.com/photo-1590807487429-2277647c4f60?q=80&w=1974&auto=format&fit=crop"
+              alt="Gallery 2"
+              class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+            />
+          </div>
+          <div class="overflow-hidden rounded-lg slide-in">
+            <img
+              src="https://images.unsplash.com/photo-1590807487429-2277647c4f60?q=80&w=1974&auto=format&fit=crop"
+              alt="Gallery 3"
+              class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+            />
+          </div>
+          <div class="overflow-hidden rounded-lg slide-in">
+            <img
+              src="https://images.unsplash.com/photo-1590807487429-2277647c4f60?q=80&w=1974&auto=format&fit=crop"
+              alt="Gallery 4"
+              class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-primary-light/20">
+      <div class="container mx-auto px-4">
+        <h2
+          class="text-3xl font-bold text-center mb-12 text-primary-darker slide-in"
+        >
+          Hubungi Kami
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="space-y-4 slide-in">
+            <h3 class="text-xl font-bold text-primary-darker">
+              Informasi Kontak
+            </h3>
+            <p class="flex items-center text-primary-dark">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Desa Merapi, Yogyakarta, Indonesia
+            </p>
+            <p class="flex items-center text-primary-dark">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"
+                />
+              </svg>
+              +62 123 456 7890
+            </p>
+            <p class="flex items-center text-primary-dark">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+                />
+                <path
+                  d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
+                />
+              </svg>
+              info@terasmerapi.com
+            </p>
+          </div>
+          <form class="space-y-4 slide-in">
+            <div>
+              <label class="block text-primary-darker mb-2">Nama</label>
+              <input
+                type="text"
+                class="w-full px-4 py-2 border border-primary rounded-lg focus:outline-none focus:border-primary-dark focus:ring-1 focus:ring-primary-dark transition-all duration-300"
+              />
+            </div>
+            <div>
+              <label class="block text-primary-darker mb-2">Email</label>
+              <input
+                type="email"
+                class="w-full px-4 py-2 border border-primary rounded-lg focus:outline-none focus:border-primary-dark focus:ring-1 focus:ring-primary-dark transition-all duration-300"
+              />
+            </div>
+            <div>
+              <label class="block text-primary-darker mb-2">Pesan</label>
+              <textarea
+                class="w-full px-4 py-2 border border-primary rounded-lg focus:outline-none focus:border-primary-dark focus:ring-1 focus:ring-primary-dark transition-all duration-300"
+                rows="4"
+              ></textarea>
+            </div>
+            <button
+              class="bg-primary hover:bg-primary-dark text-primary-darker hover:text-white px-6 py-2 rounded-lg transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1"
+            >
+              Kirim Pesan
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary-darker text-white py-8">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="slide-in">
+            <h3 class="text-xl font-bold mb-4">TERAS MERAPI</h3>
+            <p class="text-primary-light">
+              Nikmati pengalaman wisata alam terbaik dengan pemandangan Gunung
+              Merapi yang memukau.
+            </p>
+          </div>
+          <div class="slide-in">
+            <h3 class="text-xl font-bold mb-4">Jam Operasional</h3>
+            <p class="text-primary-light">Setiap hari: 08.00 - 17.00 WIB</p>
+          </div>
+          <div class="slide-in">
+            <h3 class="text-xl font-bold mb-4">Sosial Media</h3>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="text-primary-light hover:text-white transition-colors duration-300 transform hover:scale-110 inline-block"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="#"
+                class="text-primary-light hover:text-white transition-colors duration-300 transform hover:scale-110 inline-block"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="border-t border-primary-dark mt-8 pt-8 text-center text-primary-light slide-in"
+        >
+          <p>&copy; 2024 Teras Merapi. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script src="script.js"></script>
+  <script>
+    function animateCounter(element, target, isDecimal = false) {
+      let current = 0;
+      const increment = isDecimal ? 0.1 : 1;
+      const duration = 2000; // 2 seconds
+      const steps = isDecimal ? target * 10 : target;
+      const stepTime = duration / steps;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current > target) {
+          element.textContent = target;
+          clearInterval(timer);
+        } else {
+          element.textContent = isDecimal
+            ? current.toFixed(1)
+            : Math.floor(current);
+        }
+      }, stepTime);
+    }
+
+    // Intersection Observer for counter animation
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Regular counters
+            entry.target
+              .querySelectorAll(".counter-number")
+              .forEach((counter) => {
+                const target = parseInt(counter.getAttribute("data-target"));
+                animateCounter(counter, target);
+              });
+
+            // Decimal counter (rating)
+            entry.target
+              .querySelectorAll(".counter-decimal")
+              .forEach((counter) => {
+                const target = parseFloat(counter.getAttribute("data-target"));
+                animateCounter(counter, target, true);
+              });
+
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    // Observe the hero section
+    observer.observe(document.querySelector("#home"));
+  </script>
+</html>
